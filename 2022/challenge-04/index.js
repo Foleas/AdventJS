@@ -18,6 +18,7 @@ function fitsInOneBox(boxes) {
 }
 */
 
+/*
 function fitsInOneBox(boxes) {
   const boxesSorted =
     boxes.length > 1 &&
@@ -41,6 +42,43 @@ function fitsInOneBox(boxes) {
   //console.log("allFits", allFits);
 
   return allFits;
+}*/
+
+function fitsInOneBox(boxes) {
+  return (
+    boxes.length > 1 &&
+    boxes.every((box) => box.l && box.w && box.h) &&
+    boxes
+      .sort((a, b) => a.l * a.w * a.h - b.l * b.w * b.h)
+      .every((box, i) => {
+        if (boxes[i + 1]) {
+          //console.log("hay uno mas");
+          return (
+            boxes[i + 1].l > box.l &&
+            boxes[i + 1].w > box.w &&
+            boxes[i + 1].h > box.h
+          );
+        } else {
+          return true;
+        }
+      })
+  );
+
+  /*
+  return (
+    boxes.length > 1 &&
+    boxes.every((box) => box.l && box.w && box.h) &&
+    boxes
+      .sort((a, b) => a.l * a.w * a.h - b.l * b.w * b.h)
+      .every((box, i) =>
+        boxes[i + 1]
+          ? boxes[i + 1].l > box.l &&
+            boxes[i + 1].w > box.w &&
+            boxes[i + 1].h > box.h
+          : true
+      )
+  );
+  */
 }
 
 const boxes = [
