@@ -1,3 +1,4 @@
+/*
 const fitsInOther = (box1, box2) => {
   return box1.l < box2.l && box1.w < box2.w && box1.h < box2.h ? true : false;
 };
@@ -14,6 +15,32 @@ function fitsInOneBox(boxes) {
     }
   }
   return true;
+}
+*/
+
+function fitsInOneBox(boxes) {
+  const boxesSorted =
+    boxes.length > 1 &&
+    boxes.every((box) => box.l && box.w && box.h) &&
+    boxes.sort((a, b) => a.l * a.w * a.h - b.l * b.w * b.h);
+
+  //console.log(boxesSorted);
+
+  const allFits = boxesSorted.every((box, i) => {
+    if (boxes[i + 1]) {
+      //console.log("hay uno mas");
+      return (
+        boxes[i + 1].l > box.l &&
+        boxes[i + 1].w > box.w &&
+        boxes[i + 1].h > box.h
+      );
+    } else {
+      return true;
+    }
+  });
+  //console.log("allFits", allFits);
+
+  return allFits;
 }
 
 const boxes = [
