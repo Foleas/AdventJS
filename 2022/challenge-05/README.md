@@ -1,41 +1,38 @@
-# Reto #4: Una caja dentro de otra caja y otra...
+# Reto #5: Optimizando viajes de Santa
 
-Santa Claus necesita hacer una revisión de sus cajas de regalos para asegurarse de que puede empaquetarlas todas en su trineo. Cuenta con una serie de cajas de diferentes tamaños, que se caracterizan por su longitud, anchura y altura.
+Para no cansar a los renos, Papá Noel quiere dejar el máximo número de regalos haciendo el menor número posible de viajes.
 
-Tu tarea es escribir una función que, dada una lista de cajas con sus tamaños, determine si es posible empaquetar todas las cajas en una sola de manera que cada caja contenga a otra (que a su vez contenga a otra, y así sucesivamente).
+Tiene un array de ciudades donde cada elemento es el número de regalos que puede dejar allí. [12, 3, 11, 5, 7]. Por otro lado, el límite de regalos que caben en su saco. Y, finalmente, el número de ciudades máximo que sus renos pueden visitar.
 
-Cada caja representa sus medidas con un objeto. Por ejemplo: {l: 2, w: 3, h: 2}. Esto significa que la caja tiene una longitud de 2, una anchura de 3 y una altura de 2.
+Como no quiere dejar una ciudad a medias, si no puede dejar todos los regalos que son de esa ciudad, no deja ninguno allí.
 
-Una caja entra en otra caja si todos los lados de la primera son menores a los lados de la segunda. Los elfos nos han dicho que las cajas no se pueden rotar, así que no se puede poner una caja de 2x3x2 en una caja de 3x2x2. Veamos unos ejemplos:
+Crea un programa que le diga la suma más alta de regalos que podría repartir teniendo en cuenta el máximo de regalos que puede transportar y el número máximo de ciudades que puede visitar:
 
-fitsInOneBox([
-{ l: 1, w: 1, h: 1 },
-{ l: 2, w: 2, h: 2 }
-]) // true
-En el ejemplo anterior, la caja más pequeña entra en la caja más grande. Por lo tanto, es posible empaquetar todas las cajas en una sola. Ahora veamos un caso que no:
+const giftsCities = [12, 3, 11, 5, 7]
+const maxGifts = 20
+const maxCities = 3
 
-const boxes = [
-{ l: 1, w: 1, h: 1 },
-{ l: 2, w: 2, h: 2 },
-{ l: 3, w: 1, h: 3 }
-]
+// la suma más alta de regalos a repartir
+// visitando un máximo de 3 ciudades
+// es de 20: [12, 3, 5]
 
-fitsInOneBox(boxes) // false
-En el ejemplo anterior, la caja más pequeña entra en la caja del medio, pero la caja del medio no entra en la caja más grande. Por lo tanto, no es posible empaquetar todas las cajas en una sola.
+// la suma más alta sería [12, 7, 11]
+// pero excede el límite de 20 regalos y tendría
+// que dejar alguna ciudad a medias.
 
-Ten en cuenta que las cajas pueden no venir en orden:
+getMaxGifts(giftsCities, maxGifts, maxCities) // 20
+Si no se puede realizar ningún viaje que satisface los requerimientos, el resultado debe ser 0. Más ejemplos:
 
-const boxes = [
-{ l: 1, w: 1, h: 1 },
-{ l: 3, w: 3, h: 3 },
-{ l: 2, w: 2, h: 2 }
-]
+getMaxGifts([12, 3, 11, 5, 7], 20, 3) // 20
+getMaxGifts([50], 15, 1) // 0
+getMaxGifts([50], 100, 1) // 50
+getMaxGifts([50, 70], 100, 1) // 70
+getMaxGifts([50, 70, 30], 100, 2) // 100
+getMaxGifts([50, 70, 30], 100, 3) // 100
+getMaxGifts([50, 70, 30], 100, 4) // 100
+A tener en cuenta:
 
-fitsInOneBox(boxes) // true
-En el ejemplo anterior, la primer caja cabe en la tercera, y la tercera en la segunda. Por lo tanto, es posible empaquetar todas las cajas en una sola.
-
-Cosas a tener en cuenta:
-
-Las cajas no se pueden rotar ya que los elfos nos han dicho que la máquina no está preparada.
-Las cajas pueden venir desordenadas de tamaño.
-Las cajas no son siempre cuadradas, pueden ser rectangulares.
+maxGifts >= 1
+giftsCities.length >= 1
+maxCities >= 1
+El número de maxCities puede ser mayor a giftsCities.length

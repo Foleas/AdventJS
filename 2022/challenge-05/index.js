@@ -42,3 +42,54 @@ const maxCities = 3;
 // console.log(getMaxGifts([50, 70, 30], 100, 3)); // 100
 // console.log(getMaxGifts([50, 70, 30], 100, 4)); // 100
 console.log(getMaxGifts([50, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 1000, 1000));
+
+/*
+
+function getMaxGifts(giftsCities, maxGifts, maxCities) {
+  const solve = (giftsCities, maxGifts, maxCities) => {
+    let maxGiftsValid = 0
+    const cityLength = giftsCities.length
+  giftsCities.map( () => {
+    let cityCount = 0
+    let acc = 0
+
+    for(let idx = 0; idx < cityLength; idx++) {
+      if(cityCount === maxCities) break
+      if(acc + giftsCities[idx] <= maxGifts) {
+        acc += giftsCities[idx]
+        cityCount++
+      }
+    }
+    if(acc > maxGiftsValid) maxGiftsValid = acc
+    
+    giftsCities.push(giftsCities[0])
+    giftsCities.shift()
+  })
+  
+  return maxGiftsValid
+  }
+
+  return solve(giftsCities, maxGifts, maxCities)
+}
+
+refactorizaron a esto
+
+
+function getMaxGifts(giftsCities, maxGifts, maxCities) {
+    let maxGiftsValid = 0
+    const cityLength = giftsCities.length
+    giftsCities.forEach((item, idx) =>{
+      let cityCount = 0
+      let acc = 0
+      for(idx; idx < cityLength; idx++) {
+        if(cityCount === maxCities) break
+        if(acc + giftsCities[idx] <= maxGifts) {
+          acc += giftsCities[idx]
+          cityCount++
+        }
+      }
+      if(acc > maxGiftsValid) maxGiftsValid = acc
+    })
+  return maxGiftsValid
+}
+*/
