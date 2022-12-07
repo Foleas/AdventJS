@@ -2,16 +2,14 @@ function createCube(size) {
   let top = "";
   let bottom = "";
   for (let i = 1; i <= size; i++) {
-    top += " ".repeat(size - i);
-    top += "/\\".repeat(i);
-    top += "_\\".repeat(size);
-    top += "\n";
-    bottom += " ".repeat(i - 1);
-    bottom += "\\/".repeat(size - (i - 1));
-    bottom += "_/".repeat(size);
-    bottom += "\n";
+    top += `${" ".repeat(size - i)}${"/\\".repeat(i)}${"_\\".repeat(size)}${
+      i <= size ? "\n" : ""
+    }`;
+    bottom += `${" ".repeat(i - 1)}${"\\/".repeat(size - (i - 1))}${"_/".repeat(
+      size
+    )}${i < size ? "\n" : ""}`;
   }
-  return top + bottom.slice(0, -1);
+  return top + bottom;
 }
 
 const cubeOfOne = createCube(1);
