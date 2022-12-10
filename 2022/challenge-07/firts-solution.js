@@ -1,9 +1,21 @@
 function getGiftsToRefill(a1, a2, a3) {
-  const allUnique = [...new Set([...a1, ...a2, ...a3])];
-  const gifts = allUnique.filter(
-    (gift) => a1.includes(gift) + a2.includes(gift) + a3.includes(gift) < 2
+  const a1Unique = a1.filter(
+    (gift) => a2.indexOf(gift) === -1 && a3.indexOf(gift) === -1
   );
-  return gifts;
+
+  const a2Unique = a2.filter(
+    (gift) => a1.indexOf(gift) === -1 && a3.indexOf(gift) === -1
+  );
+
+  const a3Unique = a3.filter(
+    (gift) => a1.indexOf(gift) === -1 && a2.indexOf(gift) === -1
+  );
+
+  console.log(a1Unique, a2Unique, a3Unique);
+
+  return a1Unique
+    .concat(a2Unique, a3Unique)
+    .filter((v, i, arr) => arr.indexOf(v) === i);
 }
 
 const a1 = ["bici", "coche", "bici", "bici"];
